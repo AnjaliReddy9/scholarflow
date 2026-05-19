@@ -9,6 +9,7 @@ requires-python = ">=3.11"
 dependencies = [
     "scholarflow-schemas",
     "pydantic>=2",
+    "qdrant-client>=1.12",
 ]
 
 [project.optional-dependencies]
@@ -16,6 +17,8 @@ dev = ["pytest", "ruff"]
 
 [project.scripts]
 scholarflow-ingest = "scholarflow_retrieval.cli:main"
+scholarflow-index = "scholarflow_retrieval.cli:main"
+scholarflow-retrieve = "scholarflow_retrieval.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/scholarflow_retrieval"]

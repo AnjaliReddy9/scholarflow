@@ -40,7 +40,14 @@ ingest-install: api-install
 	$(PIP) install -e "services/retrieval[dev]"
 
 ingest: ingest-install
-	$(VENV)/bin/scholarflow-ingest --raw-dir data/raw --processed-dir data/processed --ingest-run-id $(RUN_ID)
+	$(VENV)/bin/scholarflow-ingest ingest --raw-dir data/raw --processed-dir data/processed --ingest-run-id $(RUN_ID)
+
+index: ingest-install
+	$(VENV)/bin/scholarflow-index index --processed-dir data/processed --ingest-run-id $(RUN_ID)
+
+retrieve: ingest-install
+	@test -n "$(QUERY)" || (echo "QUERY is required, e.g. make retrieve RUN_ID=local-dev-001 QUERY='academic integrity'" && exit 1)
+	$(VENV)/bin/scholarflow-retrieve retrieve --ingest-run-id $(RUN_ID) --query "$(QUERY)" --json
 
 ingest-test: ingest-install
 	$(VENV)/bin/pytest services/retrieval/tests -q
