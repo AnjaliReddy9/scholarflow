@@ -1,4 +1,26 @@
 from campusiq_schemas.errors import ErrorDetail, ErrorResponse
 from campusiq_schemas.health import HealthResponse
+from campusiq_schemas.ingestion import (
+    ChunkProvenance,
+    DocumentChunk,
+    IngestionManifest,
+    NormalizedDocument,
+    ProvenanceMetadata,
+    SectionNode,
+    SourceType,
+    VersionMetadata,
+)
 
-__all__ = ["ErrorDetail", "ErrorResponse", "HealthResponse"]
+__all__ = [
+    "ChunkProvenance",
+    "DocumentChunk",
+    "ErrorDetail",
+    "ErrorResponse",
+    "HealthResponse",
+    "IngestionManifest",
+    "NormalizedDocument",
+    "ProvenanceMetadata",
+    "SectionNode",
+    "SourceType",
+    "VersionMetadata",
+]
