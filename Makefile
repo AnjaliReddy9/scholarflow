@@ -27,7 +27,7 @@ api-install: $(VENV)/bin/activate
 	$(PIP) install -e "apps/api[dev]"
 
 api-dev: api-install
-	$(VENV)/bin/uvicorn campusiq_api.app:app --reload --host 0.0.0.0 --port 8000
+	$(VENV)/bin/uvicorn scholarflow_api.app:app --reload --host 0.0.0.0 --port 8000
 
 api-test: api-install
 	$(VENV)/bin/pytest apps/api/tests -q
@@ -40,7 +40,7 @@ ingest-install: api-install
 	$(PIP) install -e "services/retrieval[dev]"
 
 ingest: ingest-install
-	$(VENV)/bin/campusiq-ingest --raw-dir data/raw --processed-dir data/processed --ingest-run-id $(RUN_ID)
+	$(VENV)/bin/scholarflow-ingest --raw-dir data/raw --processed-dir data/processed --ingest-run-id $(RUN_ID)
 
 ingest-test: ingest-install
 	$(VENV)/bin/pytest services/retrieval/tests -q

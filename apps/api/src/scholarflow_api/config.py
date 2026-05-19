@@ -9,23 +9,23 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    app_name: str = Field(default="CampusIQ API", validation_alias="CAMPUSIQ_APP_NAME")
-    log_level: str = Field(default="info", validation_alias="CAMPUSIQ_LOG_LEVEL")
+    app_name: str = Field(default="ScholarFlow API", validation_alias="SCHOLARFLOW_APP_NAME")
+    log_level: str = Field(default="info", validation_alias="SCHOLARFLOW_LOG_LEVEL")
     cors_origins: list[str] = Field(
         default_factory=lambda: ["http://localhost:4200"],
-        validation_alias="CAMPUSIQ_CORS_ORIGINS",
+        validation_alias="SCHOLARFLOW_CORS_ORIGINS",
     )
     database_url: str = Field(
-        default="postgresql://campusiq:campusiq@localhost:5432/campusiq",
-        validation_alias="CAMPUSIQ_DATABASE_URL",
+        default="postgresql://scholarflow:scholarflow@localhost:5432/campusiq",
+        validation_alias="SCHOLARFLOW_DATABASE_URL",
     )
     vector_store_url: str = Field(
         default="http://localhost:6333",
-        validation_alias="CAMPUSIQ_VECTOR_STORE_URL",
+        validation_alias="SCHOLARFLOW_VECTOR_STORE_URL",
     )
     inference_base_url: str | None = Field(
         default=None,
-        validation_alias="CAMPUSIQ_INFERENCE_BASE_URL",
+        validation_alias="SCHOLARFLOW_INFERENCE_BASE_URL",
     )
 
     @field_validator("cors_origins", mode="before")

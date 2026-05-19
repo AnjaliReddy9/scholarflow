@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from campusiq_schemas.ingestion import SourceType
+from scholarflow_schemas.ingestion import SourceType
 
-from campusiq_retrieval.loaders.raw_source import RawSource
+from scholarflow_retrieval.loaders.raw_source import RawSource
 
 _DIRECTORY_SOURCE_TYPE: dict[str, SourceType] = {
     "course_catalog": SourceType.COURSE_CATALOG,

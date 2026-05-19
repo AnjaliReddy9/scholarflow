@@ -1,4 +1,4 @@
-from campusiq_retrieval.normalize.sections import extract_markdown_sections, split_paragraphs
+from scholarflow_retrieval.normalize.sections import extract_markdown_sections, split_paragraphs
 
 
 def test_extract_markdown_sections_preserves_hierarchy() -> None:

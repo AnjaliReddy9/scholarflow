@@ -2,13 +2,13 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from campusiq_schemas.ingestion import IngestionManifest, NormalizedDocument
+from scholarflow_schemas.ingestion import IngestionManifest, NormalizedDocument
 
-from campusiq_retrieval.chunking.structure import chunks_for_document
-from campusiq_retrieval.constants import PIPELINE_VERSION
-from campusiq_retrieval.loaders.markdown import discover_markdown_sources
-from campusiq_retrieval.normalize.document import normalize_document
-from campusiq_retrieval.pipeline.persist import write_jsonl, write_manifest
+from scholarflow_retrieval.chunking.structure import chunks_for_document
+from scholarflow_retrieval.constants import PIPELINE_VERSION
+from scholarflow_retrieval.loaders.markdown import discover_markdown_sources
+from scholarflow_retrieval.normalize.document import normalize_document
+from scholarflow_retrieval.pipeline.persist import write_jsonl, write_manifest
 
 
 def run_ingestion(

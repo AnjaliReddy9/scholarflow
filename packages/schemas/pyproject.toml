@@ -3,13 +3,13 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "campusiq-schemas"
+name = "scholarflow-schemas"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = ["pydantic>=2"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/campusiq_schemas"]
+packages = ["src/scholarflow_schemas"]
 
 [tool.ruff]
 line-length = 100

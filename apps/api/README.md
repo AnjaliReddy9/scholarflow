@@ -1,4 +1,4 @@
-# CampusIQ API
+# ScholarFlow API
 
 FastAPI gateway. Phase 0 exposes `GET /health` only.
 

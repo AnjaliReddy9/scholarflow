@@ -21,7 +21,7 @@ Orchestration lives in `pipeline/ingest.py` as explicit sequential calls—no fr
 
 ## Contracts
 
-Shared Pydantic models live in `packages/schemas` (`campusiq_schemas.ingestion`):
+Shared Pydantic models live in `packages/schemas` (`scholarflow_schemas.ingestion`):
 
 - `NormalizedDocument` — document-level metadata and section tree
 - `DocumentChunk` — retrievable unit with `chunk_id`, ordering, and provenance

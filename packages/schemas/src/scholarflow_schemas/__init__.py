@@ -1,6 +1,6 @@
-from campusiq_schemas.errors import ErrorDetail, ErrorResponse
-from campusiq_schemas.health import HealthResponse
-from campusiq_schemas.ingestion import (
+from scholarflow_schemas.errors import ErrorDetail, ErrorResponse
+from scholarflow_schemas.health import HealthResponse
+from scholarflow_schemas.ingestion import (
     ChunkProvenance,
     DocumentChunk,
     IngestionManifest,

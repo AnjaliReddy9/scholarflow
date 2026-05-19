@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from campusiq_schemas.ingestion import SourceType
+from scholarflow_schemas.ingestion import SourceType
 
 
 @dataclass(frozen=True)

@@ -1,5 +1,5 @@
-from campusiq_retrieval.loaders.markdown import load_markdown_file
-from campusiq_retrieval.normalize.document import normalize_document
+from scholarflow_retrieval.loaders.markdown import load_markdown_file
+from scholarflow_retrieval.normalize.document import normalize_document
 
 
 def test_normalize_document_preserves_metadata(raw_dir, fixture_run_id, fixture_time) -> None:

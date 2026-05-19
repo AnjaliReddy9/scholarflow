@@ -16,7 +16,7 @@ Artifacts are written to `data/processed/{ingest_run_id}/`.
 ## Layout
 
 ```
-src/campusiq_retrieval/
+src/scholarflow_retrieval/
   loaders/       Source file loading
   normalize/     Document and section normalization
   chunking/      Structure-aware chunking

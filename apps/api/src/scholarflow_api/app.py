@@ -6,10 +6,10 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 
-from campusiq_api import __version__
-from campusiq_api.deps import get_settings
-from campusiq_api.errors import validation_exception_handler
-from campusiq_api.routes import health
+from scholarflow_api import __version__
+from scholarflow_api.deps import get_settings
+from scholarflow_api.errors import validation_exception_handler
+from scholarflow_api.routes import health
 
 logger = logging.getLogger(__name__)
 

@@ -85,7 +85,7 @@ Standards: [docs/engineering-standards.md](docs/engineering-standards.md).
 ## Repository layout
 
 ```
-campusiq/                          # repository root (ScholarFlow codebase)
+scholarflow/                          # repository root (ScholarFlow codebase)
   apps/api/                        FastAPI gateway
   apps/web/                        Angular client
   services/retrieval/              Ingestion (and future search)

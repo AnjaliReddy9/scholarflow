@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from campusiq_api.app import create_app
+from scholarflow_api.app import create_app
 
 
 def test_health_returns_typed_response() -> None:

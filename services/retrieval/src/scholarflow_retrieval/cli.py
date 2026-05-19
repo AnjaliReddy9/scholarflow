@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from campusiq_retrieval.pipeline.ingest import run_ingestion
+from scholarflow_retrieval.pipeline.ingest import run_ingestion
 
 
 def main() -> None:

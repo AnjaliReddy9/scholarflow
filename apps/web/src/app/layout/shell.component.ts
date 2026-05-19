@@ -7,7 +7,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   template: `
     <div class="shell">
       <header class="shell-header">
-        <span class="brand">CampusIQ</span>
+        <span class="brand">ScholarFlow</span>
         <nav>
           <a routerLink="/query" routerLinkActive="active">Query</a>
         </nav>

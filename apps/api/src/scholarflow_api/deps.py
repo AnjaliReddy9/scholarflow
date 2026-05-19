@@ -5,7 +5,7 @@ from typing import Annotated, Protocol
 
 from fastapi import Depends
 
-from campusiq_api.config import Settings
+from scholarflow_api.config import Settings
 
 
 @lru_cache(maxsize=1)

@@ -1,9 +1,9 @@
-from campusiq_schemas.ingestion import DocumentChunk, NormalizedDocument, SectionNode
+from scholarflow_schemas.ingestion import DocumentChunk, NormalizedDocument, SectionNode
 
-from campusiq_retrieval.chunking.split import split_section_body
-from campusiq_retrieval.constants import MAX_SECTION_CHARS
-from campusiq_retrieval.ids import chunk_id_for
-from campusiq_retrieval.provenance.mapping import chunk_provenance_for
+from scholarflow_retrieval.chunking.split import split_section_body
+from scholarflow_retrieval.constants import MAX_SECTION_CHARS
+from scholarflow_retrieval.ids import chunk_id_for
+from scholarflow_retrieval.provenance.mapping import chunk_provenance_for
 
 
 def chunks_for_document(document: NormalizedDocument) -> list[DocumentChunk]:

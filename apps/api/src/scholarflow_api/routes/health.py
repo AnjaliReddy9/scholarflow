@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from campusiq_api import __version__
-from campusiq_schemas.health import HealthResponse
+from scholarflow_api import __version__
+from scholarflow_schemas.health import HealthResponse
 
 router = APIRouter(tags=["health"])
 

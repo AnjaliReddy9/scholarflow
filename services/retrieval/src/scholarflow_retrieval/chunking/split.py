@@ -1,4 +1,4 @@
-from campusiq_retrieval.normalize.sections import split_paragraphs
+from scholarflow_retrieval.normalize.sections import split_paragraphs
 
 
 def split_section_body(body: str, max_chars: int) -> list[str]:

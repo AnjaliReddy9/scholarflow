@@ -1,7 +1,7 @@
-from campusiq_retrieval.chunking.structure import chunks_for_document
-from campusiq_retrieval.ids import chunk_id_for
-from campusiq_retrieval.loaders.markdown import load_markdown_file
-from campusiq_retrieval.normalize.document import normalize_document
+from scholarflow_retrieval.chunking.structure import chunks_for_document
+from scholarflow_retrieval.ids import chunk_id_for
+from scholarflow_retrieval.loaders.markdown import load_markdown_file
+from scholarflow_retrieval.normalize.document import normalize_document
 
 
 def test_chunks_respect_section_boundaries(raw_dir, fixture_run_id, fixture_time) -> None:

@@ -15,7 +15,7 @@
 - [x] Document loaders and normalization
 - [x] Structure-aware chunking with version metadata
 - [x] Provenance mapping and processed artifact layout
-- [x] Ingestion CLI (`campusiq-ingest`)
+- [x] Ingestion CLI (`scholarflow-ingest`)
 - [x] Synthetic academic corpus under `data/raw/`
 - [ ] Embedding pipeline (deferred to phase 2)
 

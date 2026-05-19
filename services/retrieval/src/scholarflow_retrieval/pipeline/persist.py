@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from campusiq_schemas.ingestion import DocumentChunk, IngestionManifest, NormalizedDocument
+from scholarflow_schemas.ingestion import DocumentChunk, IngestionManifest, NormalizedDocument
 
 
 def write_jsonl(path: Path, rows: list[NormalizedDocument] | list[DocumentChunk]) -> None:

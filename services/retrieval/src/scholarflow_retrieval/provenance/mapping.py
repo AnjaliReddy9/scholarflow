@@ -1,4 +1,4 @@
-from campusiq_schemas.ingestion import ChunkProvenance, NormalizedDocument, SectionNode
+from scholarflow_schemas.ingestion import ChunkProvenance, NormalizedDocument, SectionNode
 
 
 def chunk_provenance_for(

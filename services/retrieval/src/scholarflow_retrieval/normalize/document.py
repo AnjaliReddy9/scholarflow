@@ -1,17 +1,17 @@
 from datetime import UTC, datetime
 from pathlib import Path
 
-from campusiq_schemas.ingestion import (
+from scholarflow_schemas.ingestion import (
     NormalizedDocument,
     ProvenanceMetadata,
     SectionNode,
     VersionMetadata,
 )
 
-from campusiq_retrieval.constants import PIPELINE_VERSION
-from campusiq_retrieval.ids import checksum_hex, document_id_for
-from campusiq_retrieval.loaders.raw_source import RawSource
-from campusiq_retrieval.normalize.sections import extract_markdown_sections
+from scholarflow_retrieval.constants import PIPELINE_VERSION
+from scholarflow_retrieval.ids import checksum_hex, document_id_for
+from scholarflow_retrieval.loaders.raw_source import RawSource
+from scholarflow_retrieval.normalize.sections import extract_markdown_sections
 
 
 def normalize_document(

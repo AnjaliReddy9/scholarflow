@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from campusiq_schemas.errors import ErrorResponse
+from scholarflow_schemas.errors import ErrorResponse
 
 
 def validation_exception_handler(

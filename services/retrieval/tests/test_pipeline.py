@@ -2,7 +2,7 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from campusiq_retrieval.pipeline.ingest import run_ingestion
+from scholarflow_retrieval.pipeline.ingest import run_ingestion
 
 
 def test_run_ingestion_persists_artifacts(

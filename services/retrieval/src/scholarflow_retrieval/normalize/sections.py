@@ -1,6 +1,6 @@
 import re
 
-from campusiq_retrieval.ids import slugify
+from scholarflow_retrieval.ids import slugify
 
 _HEADING = re.compile(r"^(#{1,6})\s+(.+)$")
 
