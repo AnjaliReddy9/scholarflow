@@ -16,7 +16,7 @@ class Settings(BaseSettings):
         validation_alias="SCHOLARFLOW_CORS_ORIGINS",
     )
     database_url: str = Field(
-        default="postgresql://scholarflow:scholarflow@localhost:5432/campusiq",
+        default="postgresql://scholarflow:scholarflow@localhost:5432/scholarflow",
         validation_alias="SCHOLARFLOW_DATABASE_URL",
     )
     vector_store_url: str = Field(
