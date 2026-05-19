@@ -32,10 +32,8 @@ dist/
 *.swp
 .DS_Store
 
-# Data (keep structure, ignore contents)
-data/raw/**
+# Data artifacts (corpus under data/raw/ is versioned)
 data/processed/**
-!data/raw/.gitkeep
 !data/processed/.gitkeep
 data/golden_set/**
 !data/golden_set/.gitkeep
