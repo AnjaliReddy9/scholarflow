@@ -1,61 +1,44 @@
 # Delivery roadmap
 
-## Phase 0 — Foundation (current)
+## Phase 0 — Foundation
 
-- Monorepo layout, documentation, engineering standards
-- FastAPI skeleton with health endpoint and DI placeholders
-- Angular shell with query page placeholder
-- Docker Compose: Postgres, vector store placeholder
-- Pre-commit, Makefile, CI skeleton (future)
+- Monorepo, API shell, web shell, Docker baseline, engineering standards
 
-**Exit criteria:** Local stack starts; API returns typed health; web serves layout and query route.
+**Exit criteria:** Met.
 
-## Phase 1 — Ingestion (in progress)
+## Phase 1 — Ingestion
 
-- [x] Document loaders and normalization
-- [x] Structure-aware chunking with version metadata
-- [x] Provenance mapping and processed artifact layout
-- [x] Ingestion CLI (`scholarflow-ingest`)
-- [x] Synthetic academic corpus under `data/raw/`
-- [ ] Embedding pipeline (deferred to phase 2)
+- [x] Loaders, normalization, structure-aware chunking, provenance
+- [x] Synthetic corpus, ingestion CLI, processed JSONL artifacts
 
-**Exit criteria:** Repeatable ingest from sample corpus to processed chunks on disk. **Met** for normalization and chunking; embeddings remain out of scope.
+**Exit criteria:** Met.
 
-## Phase 2 — Retrieval
+## Phase 2 — Retrieval (complete)
 
-- Embedding pipeline
-- Vector index create/update
-- Search API with filters and stable chunk IDs
-- Integration tests against local Qdrant
+- [x] `EmbeddingProvider` abstraction and local deterministic provider
+- [x] Vector indexing pipeline (Qdrant + in-memory for tests)
+- [x] Semantic retrieval flow and `RetrievalResponse` contracts
+- [x] `RetrievalService` and instrumentation hooks
+- [x] CLI: `index`, `retrieve`; tests for ordering, metadata, determinism
 
-**Exit criteria:** Query returns ranked chunks with provenance; no synthesis yet.
+**Exit criteria:** Met — query returns ranked evidence with provenance; no synthesis.
 
 ## Phase 3 — Orchestration and inference
 
 - OpenAI-compatible inference adapter
-- Orchestrator workflow: retrieve → generate → cite
-- `POST /v1/query` end-to-end
-- Structured errors for timeout and empty context
-
-**Exit criteria:** Web client receives answer + citations against dev corpus.
+- Orchestrator: retrieve → generate → cite
+- `POST /v1/query` on API
+- Web client wired to query endpoint
 
 ## Phase 4 — Evaluation
 
-- Golden set format and runner
-- Scorers: citation coverage, retrieval recall@k (where labeled)
-- CI gate on smoke golden set
-- Run artifact storage
+- Golden set runner, retrieval recall@k where labeled
+- CI gate on smoke set
 
-**Exit criteria:** PR fails on intentional regression in smoke set.
+## Phase 5 — Observability
 
-## Phase 5 — Observability and operations
-
-- Trace propagation
-- Dashboards for latency and failure modes
-- Runbooks for index rebuild and eval failures
+- Trace propagation, operational runbooks
 
 ## Phase 6 — Self-hosted inference
 
-- Local model deployment path
-- Config switch without API contract change
-- Eval reproducibility notes per model revision
+- Local model path without contract changes

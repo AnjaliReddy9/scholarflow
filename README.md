@@ -1,10 +1,10 @@
 # ScholarFlow
 
-Self-hosted academic intelligence and agentic RAG platform for universities. The codebase is a monorepo with explicit service boundaries, typed contracts, and deterministic ingestion for citation traceability.
+Self-hosted academic intelligence and agentic RAG platform for universities. Monorepo with explicit service boundaries, typed contracts, deterministic ingestion, and provenance-aware semantic retrieval.
 
 ## Purpose
 
-ScholarFlow demonstrates production-style Applied AI engineering: agentic orchestration over retrieval pipelines, measurable answer quality, structured observability, and a path to self-hosted inference. Internal platform code—not a chatbot wrapper.
+ScholarFlow demonstrates production-style Applied AI engineering: retrieval pipelines with measurable quality, citation traceability, evaluation hooks, and a path to agentic orchestration and self-hosted inference. Internal platform code—not a chatbot wrapper.
 
 ## Architecture summary
 
@@ -12,51 +12,78 @@ ScholarFlow demonstrates production-style Applied AI engineering: agentic orches
 |-------|----------------|
 | `apps/web` | Angular client; query submission and citation display |
 | `apps/api` | FastAPI gateway; request validation, routing, error mapping |
-| `services/orchestrator` | Agent workflow, tool calls, answer assembly |
-| `services/retrieval` | Ingestion, indexing, search |
-| `services/evaluation` | Golden-set runs, regression gates |
-| `services/inference` | OpenAI-compatible provider abstraction; self-host later |
+| `services/retrieval` | Ingestion, embedding, vector index, semantic search |
+| `services/orchestrator` | Agent workflow (planned) |
+| `services/evaluation` | Golden-set runs (planned) |
+| `services/inference` | OpenAI-compatible provider (planned) |
 | `packages/schemas` | Shared Pydantic models |
-| `packages/common` | Cross-cutting utilities |
 
-Flow: client → API → orchestrator → retrieval + inference → structured response with citations.
-
-See [docs/architecture/overview.md](docs/architecture/overview.md) and [docs/architecture/ingestion.md](docs/architecture/ingestion.md).
+See [docs/architecture/overview.md](docs/architecture/overview.md), [ingestion.md](docs/architecture/ingestion.md), [retrieval.md](docs/architecture/retrieval.md).
 
 ## Current phase
 
 | Phase | Status |
 |-------|--------|
-| 0 — Foundation | Complete (API shell, web shell, Docker baseline) |
-| 1 — Ingestion | **In progress** — normalization, chunking, provenance, synthetic corpus |
-| 2 — Retrieval | Planned (embeddings, vector index) |
-| 3+ | Orchestration, evaluation, observability, self-hosted inference |
+| 0 — Foundation | Complete |
+| 1 — Ingestion | Complete |
+| 2 — Retrieval | **Complete** — embedding abstraction, vector index, semantic search, instrumentation |
+| 3 — Orchestration + inference | Planned |
+| 4 — Evaluation + CI gates | Planned |
+| 5+ | Observability, self-hosted inference |
+
+## Retrieval lifecycle
+
+1. **Ingest** — markdown corpus → normalized chunks (`data/processed/{run_id}/`)
+2. **Index** — embed chunks → Qdrant collection `scholarflow_{run_id}`
+3. **Retrieve** — query embedding → top-k evidence with scores and provenance
+
+```bash
+make infra-up
+make ingest RUN_ID=local-dev-001
+make index RUN_ID=local-dev-001
+make retrieve RUN_ID=local-dev-001 QUERY="academic integrity policy"
+```
+
+### Semantic retrieval flow
+
+Query → `EmbeddingProvider.embed_query` → vector search → score ranking → `RetrievalResponse` with `EvidenceItem` list (chunk text, `source_reference`, section metadata, provenance, timing).
+
+### Embedding abstraction
+
+`EmbeddingProvider` isolates model choice. Default: `LocalHashEmbeddingProvider` (deterministic, for wiring and tests). Replace with hosted or self-hosted models without changing retrieval or indexing contracts.
+
+### Provenance-aware retrieval
+
+Indexed payloads and retrieval results preserve `chunk_id`, `document_id`, `source_reference`, `source_uri`, section anchors, and lineage—ready for citations and evaluation, not answer synthesis.
+
+### Design tradeoffs
+
+| Decision | Rationale |
+|----------|-----------|
+| Separate ingest / index / retrieve CLIs | Explicit stages, easy to test and replay |
+| Collection per ingest run | Isolates corpus versions for eval |
+| Local hash embedder | No external API dependency in phase 2 |
+| In-memory store in tests | Fast deterministic CI without Qdrant |
 
 ## Ingestion (phase 1)
 
-Corpus sources live under `data/raw/` by type: `course_catalog/`, `syllabi/`, `faculty_publications/`, `policies/`.
-
-Pipeline stages: load → normalize → section extract → structure-aware chunk → provenance attach → persist JSONL.
-
 ```bash
-make ingest-install
 make ingest RUN_ID=local-dev-001
 ```
 
-Outputs: `data/processed/{ingest_run_id}/documents.jsonl`, `chunks.jsonl`, `manifest.json`.
-
-**Corpus philosophy:** small, realistic university documents—structured markdown with YAML frontmatter, no bulk synthetic dumps. **Citation strategy:** every chunk carries `chunk_id`, `source_anchor`, `source_reference`, and `provenance.lineage` for deterministic replay in evaluation.
-
-**Determinism:** fixed source bytes and ingest run metadata produce identical chunk boundaries and IDs. Timestamps are run-scoped, not hidden randomness in chunk text.
+Corpus under `data/raw/` (`course_catalog/`, `syllabi/`, `faculty_publications/`, `policies/`). Structure-aware chunking with provenance metadata.
 
 ## Core capabilities
 
 | Capability | Status |
 |------------|--------|
-| Provenance-aware ingestion | Implemented |
-| Structure-aware chunking | Implemented |
-| Citation-grounded answers | Planned |
-| Vector retrieval | Planned |
+| Provenance-aware ingestion | Done |
+| Structure-aware chunking | Done |
+| Embedding provider abstraction | Done |
+| Vector indexing (Qdrant) | Done |
+| Semantic retrieval + contracts | Done |
+| Retrieval instrumentation hooks | Done |
+| Citation-grounded answers (LLM) | Planned |
 | Agent orchestration | Planned |
 | Evaluation harness | Planned |
 
@@ -67,31 +94,33 @@ Prerequisites: Python 3.11+, Node 20+, Docker, Make.
 ```bash
 cp .env.example .env
 make infra-up
-make api-install && make api-dev      # http://localhost:8000/health
-make ingest-install && make ingest    # corpus → data/processed/
-make web-install && make web-dev      # http://localhost:4200
+make ingest-install
+make ingest RUN_ID=local-dev-001
+make index RUN_ID=local-dev-001
+make retrieve RUN_ID=local-dev-001 QUERY="course requirements"
+make api-dev                       # http://localhost:8000/health
+make ingest-test
 ```
 
 ## Engineering principles
 
-- Explicit boundaries between apps, services, and packages
-- Pydantic models for all contracts
-- Deterministic ingestion before semantic retrieval
-- Evaluation before feature expansion
-- No framework-heavy pipeline abstractions
+- Explicit boundaries; typed contracts at every stage
+- Deterministic ingestion; retrieval instrumentation for measurement
+- No framework-heavy abstractions
+- Evaluation before orchestration expansion
 
 Standards: [docs/engineering-standards.md](docs/engineering-standards.md).
 
 ## Repository layout
 
 ```
-scholarflow/                          # repository root (ScholarFlow codebase)
-  apps/api/                        FastAPI gateway
-  apps/web/                        Angular client
-  services/retrieval/              Ingestion (and future search)
-  packages/schemas/                Shared models
-  data/raw/                        Versioned corpus sources
-  data/processed/                  Ingestion outputs (gitignored)
-  infra/docker/                    Postgres, Qdrant placeholder
-  docs/architecture/               System and ingestion design
+scholarflow/
+  apps/api/                 FastAPI gateway
+  apps/web/                 Angular client
+  services/retrieval/       Ingestion, embedding, indexing, retrieval
+  packages/schemas/         Ingestion + retrieval contracts
+  data/raw/                 Corpus sources
+  data/processed/           Ingest outputs (gitignored)
+  infra/docker/             Postgres, Qdrant
+  docs/architecture/
 ```

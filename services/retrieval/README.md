@@ -1,27 +1,36 @@
-# Retrieval and ingestion service
+# Retrieval service
 
-Owns corpus ingestion (phase 1), and will own embedding and search in later phases.
+Ingestion (phase 1), embedding, vector indexing, and semantic retrieval (phase 2).
 
-## Ingestion CLI
+## Commands
 
 From repository root:
 
 ```bash
-make ingest-install
 make ingest RUN_ID=local-dev-001
+make index RUN_ID=local-dev-001
+make retrieve RUN_ID=local-dev-001 QUERY="student records access"
 ```
 
-Artifacts are written to `data/processed/{ingest_run_id}/`.
+Or directly:
+
+```bash
+scholarflow-ingest ingest --ingest-run-id local-dev-001
+scholarflow-index index --ingest-run-id local-dev-001
+scholarflow-retrieve retrieve --ingest-run-id local-dev-001 --query "..." --json
+```
+
+Use `--in-memory` on index/retrieve for tests without Qdrant.
 
 ## Layout
 
 ```
 src/scholarflow_retrieval/
-  loaders/       Source file loading
-  normalize/     Document and section normalization
-  chunking/      Structure-aware chunking
-  provenance/    Chunk lineage mapping
-  pipeline/      Run orchestration and persistence
+  embedding/        Provider interface + local stub
+  indexing/         Vector store, index pipeline
+  retrieval/        Semantic search + RetrievalService
+  observability/    Instrumentation hooks
+  pipeline/         Ingestion (phase 1)
 ```
 
-Architecture: [docs/architecture/ingestion.md](../../docs/architecture/ingestion.md).
+Docs: [docs/architecture/ingestion.md](../../docs/architecture/ingestion.md), [retrieval.md](../../docs/architecture/retrieval.md).
