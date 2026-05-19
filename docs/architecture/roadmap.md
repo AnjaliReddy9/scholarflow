@@ -10,14 +10,16 @@
 
 **Exit criteria:** Local stack starts; API returns typed health; web serves layout and query route.
 
-## Phase 1 — Ingestion
+## Phase 1 — Ingestion (in progress)
 
-- Document loaders and normalization
-- Chunking policy with version metadata
-- Processed artifact layout under `data/processed/`
-- Ingestion CLI or job entrypoint
+- [x] Document loaders and normalization
+- [x] Structure-aware chunking with version metadata
+- [x] Provenance mapping and processed artifact layout
+- [x] Ingestion CLI (`campusiq-ingest`)
+- [x] Synthetic academic corpus under `data/raw/`
+- [ ] Embedding pipeline (deferred to phase 2)
 
-**Exit criteria:** Repeatable ingest from sample corpus to processed chunks on disk.
+**Exit criteria:** Repeatable ingest from sample corpus to processed chunks on disk. **Met** for normalization and chunking; embeddings remain out of scope.
 
 ## Phase 2 — Retrieval
 

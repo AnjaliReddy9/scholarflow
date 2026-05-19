@@ -14,6 +14,6 @@ repos:
     hooks:
       - id: ruff
         args: [--fix]
-        files: ^(apps/api|packages)/
+        files: ^(apps/api|packages|services/retrieval)/
       - id: ruff-format
-        files: ^(apps/api|packages)/
+        files: ^(apps/api|packages|services/retrieval)/
