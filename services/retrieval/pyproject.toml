@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "campusiq-retrieval"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "campusiq-schemas",
+    "pydantic>=2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+campusiq-ingest = "campusiq_retrieval.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/campusiq_retrieval"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
